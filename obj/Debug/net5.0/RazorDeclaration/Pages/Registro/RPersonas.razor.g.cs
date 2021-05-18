@@ -120,7 +120,7 @@ using Models;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 55 "C:\Users\Lina\Desktop\APLICADA II\Registro1_Ap2\Pages\Registro\RPersonas.razor"
+#line 86 "C:\Users\Lina\Desktop\APLICADA II\Registro1_Ap2\Pages\Registro\RPersonas.razor"
        
     [Parameter]
     public int PersonaId { get; set; }
@@ -139,7 +139,7 @@ using Models;
 #line hidden
 #nullable disable
 #nullable restore
-#line 67 "C:\Users\Lina\Desktop\APLICADA II\Registro1_Ap2\Pages\Registro\RPersonas.razor"
+#line 98 "C:\Users\Lina\Desktop\APLICADA II\Registro1_Ap2\Pages\Registro\RPersonas.razor"
                                                                                                              
     public void Nuevo()
     {
@@ -152,7 +152,7 @@ using Models;
 #line hidden
 #nullable disable
 #nullable restore
-#line 73 "C:\Users\Lina\Desktop\APLICADA II\Registro1_Ap2\Pages\Registro\RPersonas.razor"
+#line 104 "C:\Users\Lina\Desktop\APLICADA II\Registro1_Ap2\Pages\Registro\RPersonas.razor"
                                                                                                               
     private void Buscar()
     {
@@ -174,7 +174,7 @@ using Models;
 #line hidden
 #nullable disable
 #nullable restore
-#line 88 "C:\Users\Lina\Desktop\APLICADA II\Registro1_Ap2\Pages\Registro\RPersonas.razor"
+#line 119 "C:\Users\Lina\Desktop\APLICADA II\Registro1_Ap2\Pages\Registro\RPersonas.razor"
                                                                                                                
     public void Guardar()
     {
@@ -198,7 +198,7 @@ using Models;
 #line hidden
 #nullable disable
 #nullable restore
-#line 105 "C:\Users\Lina\Desktop\APLICADA II\Registro1_Ap2\Pages\Registro\RPersonas.razor"
+#line 136 "C:\Users\Lina\Desktop\APLICADA II\Registro1_Ap2\Pages\Registro\RPersonas.razor"
                                                                                                                 
     public void Eliminar()
     {

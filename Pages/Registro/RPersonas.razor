@@ -19,11 +19,11 @@
                         <div class="form-group">
                             <label>PersonaId</label>
                             <div class="input-group">
-                                <InputNumber @bind-Value="Personas.PersonaId" class="form-control col-4" min="0" />
+                                <InputNumber @bind-Value="Personas.PersonaId" class="form-control col-2" min="0" height="8" widht= "2"/>
 
                                 @*——————————————————————————————————————————————[ BUSCAR ]——————————————————————————————————————————————*@
                                 <div class="input-group-append">
-                                    <button type="button" class="btn btn-primary input-group-text" @onclick="Buscar">Buscar</button>
+                                    <button type="button" class="btn btn-primary input-group-text" height="8" widht= "2" @onclick="Buscar">Buscar</button>
                                 </div>
                             </div>
                         </div>
@@ -33,21 +33,50 @@
                 @*——————————————————————————————————————————————[ NOMBRE ]——————————————————————————————————————————————*@
                 <div class="form-group">
                     <label>Nombres</label>
-                    <InputText @bind-Value="Personas.Nombres" class="form-control" />
+                    <InputText @bind-Value="Personas.Nombres" height="8,2" widht= "2" class="form-control col-4" />
                     <ValidationMessage For="@(() => Personas.Nombres)" />
                 </div>
+                 @*——————————————————————————————————————————————[ Telefono ]——————————————————————————————————————————————*@
+                <div class="form-group">
+                    <label>Teléfono</label>
+                    <InputText @bind-Value="Personas.Telefono" height="8" widht= "2" class="form-control col-4"/>
+                    <ValidationMessage For="@(() => Personas.Telefono)" />
+                </div>
+
+                @*——————————————————————————————————————————————[ Cedula ]——————————————————————————————————————————————*@
+                <div class="form-group">
+                    <label>Cédula</label>
+                    <InputText @bind-Value="Personas.Cedula" height="8" widht= "2" class="form-control col-4" />
+                    <ValidationMessage For="@(() => Personas.Cedula)" />
+                </div>
+
+                @*——————————————————————————————————————————————[ Direccion ]——————————————————————————————————————————————*@
+                <div class="form-group">
+                    <label>Dirección</label>
+                    <InputText @bind-Value="Personas.Direccion" height="8" widht= "2" class="form-control col-4" />
+                    <ValidationMessage For="@(() => Personas.Direccion)" />
+                </div>
+
+                @*——————————————————————————————————————————————[ Fecha Nacimiento ]——————————————————————————————————————————————*@
+                <div class="form-group">
+                    <label>Fecha Nacimiento</label>
+                    <InputDate @bind-Value="Personas.FechaNacimiento" height="8" widht= "2" class="form-control col-4" />
+                    <ValidationMessage For="@(() => Personas.FechaNacimiento)" />
+                </div>
                 
+ @*——————————————————————————————————————————————[ NUEVO / GUARDAR / ELIMINAR ]——————————————————————————————————————————————*@
+                 <div class="card-footer">
+            <div class="form-group" display: inline-block>
+                <button type="button" class="btn btn-lg btn-primary" @onclick="Nuevo">Nuevo</button>
+                <button type="submit" class="btn btn-lg btn-success" style="margin-inline-start: 20px;">Guardar</button>
+                <button type="button" class="btn btn-lg btn-danger" @onclick="Eliminar" style="margin-inline-start: 20px;">Eliminar</button>
+            </div>
+        </div>
+
+
             </form>
         </div>
 
-        @*——————————————————————————————————————————————[ NUEVO / GUARDAR / ELIMINAR ]——————————————————————————————————————————————*@
-        <div class="card-footer">
-            <div class="form-group text-center" display: inline-block>
-                <button type="button" class="btn btn-lg btn-primary" @onclick="Nuevo">Nuevo</button>
-                <button type="submit" class="btn btn-lg btn-success" style="margin-inline-start: 40px;">Guardar</button>
-                <button type="button" class="btn btn-lg btn-danger" @onclick="Eliminar" style="margin-inline-start: 40px;">Eliminar</button>
-            </div>
-        </div>
     </div>
 </EditForm>
 

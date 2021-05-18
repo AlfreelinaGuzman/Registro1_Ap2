@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Registro1_Ap2.Migrations
 {
@@ -12,7 +13,11 @@ namespace Registro1_Ap2.Migrations
                 {
                     PersonaId = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Nombres = table.Column<string>(type: "TEXT", nullable: false)
+                    Nombres = table.Column<string>(type: "TEXT", nullable: false),
+                    Telefono = table.Column<string>(type: "TEXT", nullable: true),
+                    Cedula = table.Column<string>(type: "TEXT", nullable: true),
+                    Direccion = table.Column<string>(type: "TEXT", nullable: true),
+                    FechaNacimiento = table.Column<DateTime>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {

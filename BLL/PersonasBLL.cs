@@ -12,7 +12,7 @@ namespace Registro1_Ap2.BLL
     {
         public static bool Guardar(Personas persona)
         {
-            if(!Existe(persona.PersonaId))
+            if(Existe(persona.PersonaId))
                 return Insertar(persona);
             else
                 return Modificar(persona);

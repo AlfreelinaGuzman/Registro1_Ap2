@@ -11,12 +11,12 @@ namespace Registro1_Ap2.Models
         [Required(ErrorMessage ="Este campo no puede estar vacio.")]
         public string Nombres { get; set; }
        // [Required(ErrorMessage ="Este campo no puede estar vacio.")]
-       // public string Telefono { get; set; }
+        public string Telefono { get; set; }
         //[Required(ErrorMessage ="Este campo no puede estar vacio.")]
-        //public string Cedula { get; set; }
+        public string Cedula { get; set; }
         //[Required(ErrorMessage ="Este campo no puede estar vacio.")]
-        //public string Direccion { get; set; }
+        public string Direccion { get; set; }
         //[Required(ErrorMessage ="Este campo no puede estar vacio.")]
-        //public DateTime FechaNacimiento { get; set; }    
+        public DateTime FechaNacimiento { get; set; }    
     }
 }
