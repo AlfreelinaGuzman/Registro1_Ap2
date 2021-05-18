@@ -1,0 +1,22 @@
+using System;
+using System.ComponentModel.DataAnnotations;
+
+namespace Registro1_Ap2.Models
+{
+
+    public class Personas
+    {
+        [Key]
+        public int PersonaId { get; set; }
+        [Required(ErrorMessage ="Este campo no puede estar vacio.")]
+        public string Nombres { get; set; }
+       // [Required(ErrorMessage ="Este campo no puede estar vacio.")]
+       // public string Telefono { get; set; }
+        //[Required(ErrorMessage ="Este campo no puede estar vacio.")]
+        //public string Cedula { get; set; }
+        //[Required(ErrorMessage ="Este campo no puede estar vacio.")]
+        //public string Direccion { get; set; }
+        //[Required(ErrorMessage ="Este campo no puede estar vacio.")]
+        //public DateTime FechaNacimiento { get; set; }    
+    }
+}
