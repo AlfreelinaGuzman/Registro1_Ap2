@@ -1,28 +1,27 @@
 @page "/Personas"
 @page "/Personas/{PersonaId:int}"
 
-
-@inject IToastService toast
 @using BLL
 @using Models
-@using namespace
+@inject IToastService Toast
 
-
-<EditForm Models="Personas" OnValidSubmit="Guardar">
-    <DataAnnotationsValidator/>
-
+<EditForm Model="Personas" OnValidSubmit="Guardar">
+    <DataAnnotationsValidator />
     <div class="card">
         <div class="card-header">
             <h3>Registro de Personas</h3>
         </div>
         <div class="card-body">
             <form>
-                 <div class="form-row align-items-center">
+                @*——————————————————————————————————————————————[ CLIENTE ID ]——————————————————————————————————————————————*@
+                <div class="form-row align-items-center">
                     <div class="col">
                         <div class="form-group">
-                            <label>Persona Id</label>
+                            <label>PersonaId</label>
                             <div class="input-group">
-                                <InputNumber @bind-Value="Personas.PersonaId" class="form-control col-4" />
+                                <InputNumber @bind-Value="Personas.PersonaId" class="form-control col-4" min="0" />
+
+                                @*——————————————————————————————————————————————[ BUSCAR ]——————————————————————————————————————————————*@
                                 <div class="input-group-append">
                                     <button type="button" class="btn btn-primary input-group-text" @onclick="Buscar">Buscar</button>
                                 </div>
@@ -31,86 +30,92 @@
                     </div>
                 </div>
 
-                @*Nombres*@
+                @*——————————————————————————————————————————————[ NOMBRE ]——————————————————————————————————————————————*@
                 <div class="form-group">
                     <label>Nombres</label>
                     <InputText @bind-Value="Personas.Nombres" class="form-control" />
                     <ValidationMessage For="@(() => Personas.Nombres)" />
-                </div>          
+                </div>
+                
             </form>
         </div>
-         <div class="card-footer">
+
+        @*——————————————————————————————————————————————[ NUEVO / GUARDAR / ELIMINAR ]——————————————————————————————————————————————*@
+        <div class="card-footer">
             <div class="form-group text-center" display: inline-block>
                 <button type="button" class="btn btn-lg btn-primary" @onclick="Nuevo">Nuevo</button>
-                <button type="submit" class="btn btn-lg btn-success">Guardar</button>
-                <button type="button" class="btn btn-lg btn-danger" @onclick="Eliminar">Eliminar</button>
+                <button type="submit" class="btn btn-lg btn-success" style="margin-inline-start: 40px;">Guardar</button>
+                <button type="button" class="btn btn-lg btn-danger" @onclick="Eliminar" style="margin-inline-start: 40px;">Eliminar</button>
             </div>
         </div>
     </div>
 </EditForm>
 
-@code
-{
-    
-
+@*——————————————————————————————————————————————[ CODIGO ]——————————————————————————————————————————————*@
+@code {
     [Parameter]
     public int PersonaId { get; set; }
 
-    private Personas persona = new Personas();
-    //private Personas persona = new Personas();
+    private Personas Personas = new Personas();
 
     protected override void OnInitialized()
     {
         Nuevo();
-        //@* persona.FechaNacimiento = DateTime.Now;*@
         Buscar();
     }
 
-    private void Nuevo()
+    @*——————————————————————————————————————————————[ NUEVO ]——————————————————————————————————————————————*@
+    public void Nuevo()
     {
-        persona = new Personas();
-        //persona.FechaNacimiento = DateTime.Now;
+        Personas = new Personas();
     }
 
-    private void Guardar()
+    @*——————————————————————————————————————————————[ BUSCAR ]——————————————————————————————————————————————*@
+    private void Buscar()
     {
-         bool guardado;
+        if (Personas.PersonaId > 0)
+        {
+            var encontrado = PersonasBLL.Buscar(Personas.PersonaId);
 
-        guardado = PersonasBLL.Guardar(persona);
+            if (encontrado != null)
+                this.Personas = encontrado;
+            else
+                Toast.ShowWarning("Esta Id no pudo ser encontrada.");
+            return;
+        }
+    }
+
+    @*——————————————————————————————————————————————[ GUARDAR ]——————————————————————————————————————————————*@
+    public void Guardar()
+    {
+        bool guardado;
+
+        guardado = PersonasBLL.Guardar(Personas);
 
         if (guardado)
         {
             Nuevo();
-            toast.ShowSuccess("Guardado correctamente");
+            Toast.ShowSuccess("Registro Guardado exitosamente.");
         }
         else
-            toast.ShowError("No fue posible guardar");
+            Toast.ShowError("No fue posible Guardar este Registro.");
+        return;
     }
 
-    private void Buscar()
+    @*——————————————————————————————————————————————[ ELIMINAR ]——————————————————————————————————————————————*@
+    public void Eliminar()
     {
-         if (persona.PersonaId > 0)
-         {
-             var encontrado = PersonasBLL.Buscar(persona.PersonaId);
-             if (encontrado != null)
-                 persona = encontrado;
-             else
-                 toast.ShowWarning("La persona no fue encontrado");
-         }       
-    }
+        bool eliminado;
 
-    private void Eliminar()
-    {
-        bool elimino;
+        eliminado = PersonasBLL.Eliminar(Personas.PersonaId);
 
-        elimino = PersonasBLL.Eliminar(persona.PersonaId);
-
-        if (elimino)
+        if (eliminado)
         {
             Nuevo();
-            toast.ShowSuccess("Persona eliminada correctamente");
+            Toast.ShowSuccess("Registro Eliminado exitosamente.");
         }
         else
-            toast.ShowError("No fue posible eliminarla persona");     
+            Toast.ShowError("No fue posible Eliminar este Registro.");
+        return;
     }
 }

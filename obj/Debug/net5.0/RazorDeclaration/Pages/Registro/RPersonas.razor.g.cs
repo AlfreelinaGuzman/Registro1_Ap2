@@ -97,14 +97,14 @@ using Blazored.Toast.Services;
 #line hidden
 #nullable disable
 #nullable restore
-#line 6 "C:\Users\Lina\Desktop\APLICADA II\Registro1_Ap2\Pages\Registro\RPersonas.razor"
+#line 4 "C:\Users\Lina\Desktop\APLICADA II\Registro1_Ap2\Pages\Registro\RPersonas.razor"
 using BLL;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 7 "C:\Users\Lina\Desktop\APLICADA II\Registro1_Ap2\Pages\Registro\RPersonas.razor"
+#line 5 "C:\Users\Lina\Desktop\APLICADA II\Registro1_Ap2\Pages\Registro\RPersonas.razor"
 using Models;
 
 #line default
@@ -120,75 +120,106 @@ using Models;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 53 "C:\Users\Lina\Desktop\APLICADA II\Registro1_Ap2\Pages\Registro\RPersonas.razor"
- 
-    
-
+#line 55 "C:\Users\Lina\Desktop\APLICADA II\Registro1_Ap2\Pages\Registro\RPersonas.razor"
+       
     [Parameter]
     public int PersonaId { get; set; }
 
-    private Personas persona = new Personas();
-    //private Personas persona = new Personas();
+    private Personas Personas = new Personas();
 
     protected override void OnInitialized()
     {
         Nuevo();
-        //@* persona.FechaNacimiento = DateTime.Now;*@
         Buscar();
     }
 
-    private void Nuevo()
+    
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 67 "C:\Users\Lina\Desktop\APLICADA II\Registro1_Ap2\Pages\Registro\RPersonas.razor"
+                                                                                                             
+    public void Nuevo()
     {
-        persona = new Personas();
-        //persona.FechaNacimiento = DateTime.Now;
+        Personas = new Personas();
     }
 
-    private void Guardar()
-    {
-         bool guardado;
+    
 
-        guardado = PersonasBLL.Guardar(persona);
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 73 "C:\Users\Lina\Desktop\APLICADA II\Registro1_Ap2\Pages\Registro\RPersonas.razor"
+                                                                                                              
+    private void Buscar()
+    {
+        if (Personas.PersonaId > 0)
+        {
+            var encontrado = PersonasBLL.Buscar(Personas.PersonaId);
+
+            if (encontrado != null)
+                this.Personas = encontrado;
+            else
+                Toast.ShowWarning("Esta Id no pudo ser encontrada.");
+            return;
+        }
+    }
+
+    
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 88 "C:\Users\Lina\Desktop\APLICADA II\Registro1_Ap2\Pages\Registro\RPersonas.razor"
+                                                                                                               
+    public void Guardar()
+    {
+        bool guardado;
+
+        guardado = PersonasBLL.Guardar(Personas);
 
         if (guardado)
         {
             Nuevo();
-            toast.ShowSuccess("Guardado correctamente");
+            Toast.ShowSuccess("Registro Guardado exitosamente.");
         }
         else
-            toast.ShowError("No fue posible guardar");
+            Toast.ShowError("No fue posible Guardar este Registro.");
+        return;
     }
 
-    private void Buscar()
+    
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 105 "C:\Users\Lina\Desktop\APLICADA II\Registro1_Ap2\Pages\Registro\RPersonas.razor"
+                                                                                                                
+    public void Eliminar()
     {
-         if (persona.PersonaId > 0)
-         {
-             var encontrado = PersonasBLL.Buscar(persona.PersonaId);
-             if (encontrado != null)
-                 persona = encontrado;
-             else
-                 toast.ShowWarning("La persona no fue encontrado");
-         }       
-    }
+        bool eliminado;
 
-    private void Eliminar()
-    {
-        bool elimino;
+        eliminado = PersonasBLL.Eliminar(Personas.PersonaId);
 
-        elimino = PersonasBLL.Eliminar(persona.PersonaId);
-
-        if (elimino)
+        if (eliminado)
         {
             Nuevo();
-            toast.ShowSuccess("Persona eliminada correctamente");
+            Toast.ShowSuccess("Registro Eliminado exitosamente.");
         }
         else
-            toast.ShowError("No fue posible eliminarla persona");     
+            Toast.ShowError("No fue posible Eliminar este Registro.");
+        return;
     }
 
 #line default
 #line hidden
 #nullable disable
-        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IToastService toast { get; set; }
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IToastService Toast { get; set; }
     }
 }
 #pragma warning restore 1591
