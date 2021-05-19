@@ -12,7 +12,7 @@ namespace Registro1_Ap2.BLL
     {
         public static bool Guardar(Personas persona)
         {
-            if(Existe(persona.PersonaId))
+            if (!Existe(persona.PersonaId))
                 return Insertar(persona);
             else
                 return Modificar(persona);
@@ -27,7 +27,7 @@ namespace Registro1_Ap2.BLL
             {
                 encontrado = contexto.Personas.Any(d => d.PersonaId == id);
             }
-            catch(Exception)
+            catch (Exception)
             {
                 throw;
             }
@@ -48,7 +48,7 @@ namespace Registro1_Ap2.BLL
                 contexto.Personas.Add(persona);
                 insertado = (contexto.SaveChanges() > 0);
             }
-            catch(Exception)
+            catch (Exception)
             {
                 throw;
             }
@@ -69,7 +69,7 @@ namespace Registro1_Ap2.BLL
                 contexto.Entry(persona).State = EntityState.Modified;
                 modificado = (contexto.SaveChanges() > 0);
             }
-            catch(Exception)
+            catch (Exception)
             {
                 throw;
             }

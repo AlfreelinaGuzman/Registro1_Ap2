@@ -1,0 +1,11 @@
+{
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "driver": "SQLite",
+            "name": "Registro.db",
+            "database": "${workspaceFolder:Registro1_Ap2}/Data/Registro.db"
+        }
+    ],
+    "sqltools.useNodeRuntime": true
+}
