@@ -10,13 +10,16 @@ namespace Registro1_Ap2.Models
         public int PersonaId { get; set; }
         [Required(ErrorMessage ="Este campo no puede estar vacio.")]
         public string Nombres { get; set; }
-       // [Required(ErrorMessage ="Este campo no puede estar vacio.")]
+        [Required(ErrorMessage ="Este campo no puede estar vacio.")]
         public string Telefono { get; set; }
-        //[Required(ErrorMessage ="Este campo no puede estar vacio.")]
+        [Required(ErrorMessage ="Este campo no puede estar vacio.")]
         public string Cedula { get; set; }
-        //[Required(ErrorMessage ="Este campo no puede estar vacio.")]
+        [Required(ErrorMessage ="Este campo no puede estar vacio.")]
         public string Direccion { get; set; }
-        //[Required(ErrorMessage ="Este campo no puede estar vacio.")]
-        public DateTime FechaNacimiento { get; set; }    
+        
+        public DateTime FechaNacimiento { get; set; } 
+        [Required(ErrorMessage ="Este campo no puede estar vacio.")] 
+        public decimal Balance { get; set; } 
+       
     }
 }

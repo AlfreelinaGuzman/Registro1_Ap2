@@ -1,66 +1,78 @@
-@page "/Personas"
+@page "/Prestamos"
 
 @using BLL
 @using Models
 @inject IToastService Toast
 
-<EditForm Model="Personas" OnValidSubmit="Guardar">
+<EditForm Model="Prestamos" OnValidSubmit="Guardar">
     <DataAnnotationsValidator />
-    <div class="card">
+    <div class= "card">
         <div class="card-header">
-            <h3>Registro de Personas</h3>
-        </div>
+            <h3>Registro de Prestamos</h3>
+        </div> 
         <div class="card-body">
 
-            @*——————————————————————————————————————————————[ CLIENTE ID ]——————————————————————————————————————————————*@
+            @*——————————————————————————————————————————————[ persona ID ]——————————————————————————————————————————————*@
             <div class="form-row align-items-center">
                 <div class="col">
                     <div class="form-group">
-                        <label>PersonaId</label>
+                        <label>PrestamoId</label>
                         <div class="input-group">
-                            <InputNumber @bind-Value="Personas.PersonaId" class="form-control col-2" min="0" height="8" widht="2" />
+                            <InputNumber @bind-Value="Prestamos.PrestamoId" class="form-control col-2" min="0" height="8" widht="2" />
 
                             @*——————————————————————————————————————————————[ BUSCAR ]——————————————————————————————————————————————*@
                             <div class="input-group-append">
                                 <button type="button" class="btn btn-primary input-group-text" height="8" widht="2" @onclick="Buscar">Buscar</button>
                             </div>
+                       
                         </div>
                     </div>
                 </div>
             </div>
 
-            @*——————————————————————————————————————————————[ NOMBRE ]——————————————————————————————————————————————*@
             <div class="form-group">
-                <label>Nombres</label>
-                <InputText @bind-Value="Personas.Nombres" height="8,2" widht="2" class="form-control col-4" />
-                <ValidationMessage For="@(() => Personas.Nombres)" />
-            </div>
-            @*——————————————————————————————————————————————[ Telefono ]——————————————————————————————————————————————*@
-            <div class="form-group">
-                <label>Teléfono</label>
-                <InputText @bind-Value="Personas.Telefono" height="8" widht="2" class="form-control col-4" />
-                <ValidationMessage For="@(() => Personas.Telefono)" />
-            </div>
-
-            @*——————————————————————————————————————————————[ Cedula ]——————————————————————————————————————————————*@
-            <div class="form-group">
-                <label>Cédula</label>
-                <InputText @bind-Value="Personas.Cedula" height="8" widht="2" class="form-control col-4" />
-                <ValidationMessage For="@(() => Personas.Cedula)" />
+                    <InputSelect @bind-Value="PersonaIndex" class="custom-select form-control" id="PersonaIdSelectGrid">
+                         <option value="0">Elija una persona...</option>
+                            @if (personas != null)
+                                {
+                                    @foreach (var Persona in personas)
+                                {
+                                   <option value="@Persona.PersonaId">@Persona.Nombres</option>
+                                }}
+                    </InputSelect>
             </div>
 
-            @*——————————————————————————————————————————————[ Direccion ]——————————————————————————————————————————————*@
+            @*——————————————————————————————————————————————[ Concepto ]——————————————————————————————————————————————*@
             <div class="form-group">
-                <label>Dirección</label>
-                <InputText @bind-Value="Personas.Direccion" height="8" widht="2" class="form-control col-4" />
-                <ValidationMessage For="@(() => Personas.Direccion)" />
+                <label>Concepto</label>
+                <InputText @bind-Value="Prestamos.Concepto" height="8,2" widht="2" class="form-control col-4" />
+                <ValidationMessage For="@(() => Prestamos.Concepto)" />
+            </div>
+            @*——————————————————————————————————————————————[ Monto ]——————————————————————————————————————————————*@
+            <div class="form-group">
+                <label>Monto</label>
+                <InputNumber @bind-Value="Prestamos.Monto" height="8" widht="2" class="form-control col-4" />
+                <ValidationMessage For="@(() => Prestamos.Monto)" />
+                @if (Prestamos.Monto!=changedMonto)
+                {
+                    MontoChanged();
+                }
             </div>
 
-            @*——————————————————————————————————————————————[ Fecha Nacimiento ]——————————————————————————————————————————————*@
+            @*——————————————————————————————————————————————[ Balance ]——————————————————————————————————————————————*@
             <div class="form-group">
-                <label>Fecha Nacimiento</label>
-                <InputDate @bind-Value="Personas.FechaNacimiento" height="8" widht="2" class="form-control col-4" />
-                <ValidationMessage For="@(() => Personas.FechaNacimiento)" />
+                <label>Balance</label>
+                <InputNumber @bind-Value="Prestamos.Balance" height="8" widht="2" class="form-control col-4" />
+                <ValidationMessage For="@(() => Prestamos.Balance)" />
+            </div>
+
+        
+
+            @*——————————————————————————————————————————————[ Fecha  ]——————————————————————————————————————————————*@
+            <div class="form-group">
+                <label>Fecha</label>
+                <InputDate @bind-Value="Prestamos.Fecha" height="8" widht="2" class="form-control col-4" />
+                <ValidationMessage For="@(() => Prestamos.Fecha)" />
             </div>
 
             @*——————————————————————————————————————————————[ NUEVO / GUARDAR / ELIMINAR ]——————————————————————————————————————————————*@
@@ -71,40 +83,50 @@
                     <button type="button" class="btn btn-lg btn-danger" @onclick="Eliminar" style="margin-inline-start: 20px;">Eliminar</button>
                 </div>
             </div>
-
-
-
         </div>
-
     </div>
 </EditForm>
 
 @*——————————————————————————————————————————————[ CODIGO ]——————————————————————————————————————————————*@
-@code {[Parameter]
-                public int PersonaId { get; set; }
+@code
+{
+     [Parameter]
+        
+        public decimal changedMonto {get; set;}
+        public int PersonaIndex { get; set; }
+        public int PersonaId { get; set; }
 
-        private Personas Personas = new Personas();
+        private Prestamos Prestamos = new Prestamos();
+    	List <Personas> personas =new List <Personas>();
 
             protected override void OnInitialized()
             {
                 Nuevo();
+                personas = PersonasBLL.GetList(V => true);
+            }
+
+            public void MontoChanged ()
+            {
+                Prestamos.Balance = Prestamos.Monto;
+
             }
 
     @*——————————————————————————————————————————————[NUEVO]——————————————————————————————————————————————*@
         public void Nuevo()
             {
-                Personas = new Personas();
+                Prestamos = new Prestamos();
+                PersonaIndex = 0;
             }
 
     @*——————————————————————————————————————————————[BUSCAR]——————————————————————————————————————————————*@
         private void Buscar()
             {
-                if (Personas.PersonaId > 0)
+                if (Prestamos.PrestamoId > 0)
                 {
-                    var encontrado = PersonasBLL.Buscar(Personas.PersonaId);
+                    var encontrado = PrestamosBLL.Buscar(Prestamos.PrestamoId);
 
                     if (encontrado != null)
-                        this.Personas = encontrado;
+                        this.Prestamos = encontrado;
                     else
                         Toast.ShowWarning("Esta Id no pudo ser encontrada.");
                     return;
@@ -115,8 +137,9 @@
         public void Guardar()
         {
             bool guardado;
+            Prestamos.PersonaId = PersonaIndex;            
 
-            guardado = PersonasBLL.Guardar(Personas);
+            guardado = PrestamosBLL.Guardar(Prestamos);
 
             if (guardado)
             {
@@ -133,7 +156,7 @@
         {
             bool eliminado;
 
-            eliminado = PersonasBLL.Eliminar(Personas.PersonaId);
+            eliminado = PrestamosBLL.Eliminar(Prestamos.PrestamoId);
 
             if (eliminado)
             {

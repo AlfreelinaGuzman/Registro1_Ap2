@@ -97,21 +97,21 @@ using Blazored.Toast.Services;
 #line hidden
 #nullable disable
 #nullable restore
-#line 3 "C:\Users\Lina\Desktop\APLICADA II\Registro1_Ap2\Pages\Registro\RPersonas.razor"
+#line 3 "C:\Users\Lina\Desktop\APLICADA II\Registro1_Ap2\Pages\Registro\RPrestamo.razor"
 using BLL;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 4 "C:\Users\Lina\Desktop\APLICADA II\Registro1_Ap2\Pages\Registro\RPersonas.razor"
+#line 4 "C:\Users\Lina\Desktop\APLICADA II\Registro1_Ap2\Pages\Registro\RPrestamo.razor"
 using Models;
 
 #line default
 #line hidden
 #nullable disable
-    [Microsoft.AspNetCore.Components.RouteAttribute("/Personas")]
-    public partial class RPersonas : Microsoft.AspNetCore.Components.ComponentBase
+    [Microsoft.AspNetCore.Components.RouteAttribute("/Prestamos")]
+    public partial class RPrestamo : Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998
         protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
@@ -119,15 +119,27 @@ using Models;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 83 "C:\Users\Lina\Desktop\APLICADA II\Registro1_Ap2\Pages\Registro\RPersonas.razor"
-       [Parameter]
-                public int PersonaId { get; set; }
+#line 92 "C:\Users\Lina\Desktop\APLICADA II\Registro1_Ap2\Pages\Registro\RPrestamo.razor"
+ 
+     [Parameter]
+        
+        public decimal changedMonto {get; set;}
+        public int PersonaIndex { get; set; }
+        public int PersonaId { get; set; }
 
-        private Personas Personas = new Personas();
+        private Prestamos Prestamos = new Prestamos();
+    	List <Personas> personas =new List <Personas>();
 
             protected override void OnInitialized()
             {
                 Nuevo();
+                personas = PersonasBLL.GetList(V => true);
+            }
+
+            public void MontoChanged ()
+            {
+                Prestamos.Balance = Prestamos.Monto;
+
             }
 
     
@@ -136,11 +148,12 @@ using Models;
 #line hidden
 #nullable disable
 #nullable restore
-#line 93 "C:\Users\Lina\Desktop\APLICADA II\Registro1_Ap2\Pages\Registro\RPersonas.razor"
+#line 114 "C:\Users\Lina\Desktop\APLICADA II\Registro1_Ap2\Pages\Registro\RPrestamo.razor"
                                                                                                            
         public void Nuevo()
             {
-                Personas = new Personas();
+                Prestamos = new Prestamos();
+                PersonaIndex = 0;
             }
 
     
@@ -149,16 +162,16 @@ using Models;
 #line hidden
 #nullable disable
 #nullable restore
-#line 99 "C:\Users\Lina\Desktop\APLICADA II\Registro1_Ap2\Pages\Registro\RPersonas.razor"
+#line 121 "C:\Users\Lina\Desktop\APLICADA II\Registro1_Ap2\Pages\Registro\RPrestamo.razor"
                                                                                                             
         private void Buscar()
             {
-                if (Personas.PersonaId > 0)
+                if (Prestamos.PrestamoId > 0)
                 {
-                    var encontrado = PersonasBLL.Buscar(Personas.PersonaId);
+                    var encontrado = PrestamosBLL.Buscar(Prestamos.PrestamoId);
 
                     if (encontrado != null)
-                        this.Personas = encontrado;
+                        this.Prestamos = encontrado;
                     else
                         Toast.ShowWarning("Esta Id no pudo ser encontrada.");
                     return;
@@ -171,13 +184,14 @@ using Models;
 #line hidden
 #nullable disable
 #nullable restore
-#line 114 "C:\Users\Lina\Desktop\APLICADA II\Registro1_Ap2\Pages\Registro\RPersonas.razor"
+#line 136 "C:\Users\Lina\Desktop\APLICADA II\Registro1_Ap2\Pages\Registro\RPrestamo.razor"
                                                                                                                
         public void Guardar()
         {
             bool guardado;
+            Prestamos.PersonaId = PersonaIndex;            
 
-            guardado = PersonasBLL.Guardar(Personas);
+            guardado = PrestamosBLL.Guardar(Prestamos);
 
             if (guardado)
             {
@@ -195,13 +209,13 @@ using Models;
 #line hidden
 #nullable disable
 #nullable restore
-#line 131 "C:\Users\Lina\Desktop\APLICADA II\Registro1_Ap2\Pages\Registro\RPersonas.razor"
+#line 154 "C:\Users\Lina\Desktop\APLICADA II\Registro1_Ap2\Pages\Registro\RPrestamo.razor"
                                                                                                                 
         public void Eliminar()
         {
             bool eliminado;
 
-            eliminado = PersonasBLL.Eliminar(Personas.PersonaId);
+            eliminado = PrestamosBLL.Eliminar(Prestamos.PrestamoId);
 
             if (eliminado)
             {

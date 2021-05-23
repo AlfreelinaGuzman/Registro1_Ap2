@@ -87,3 +87,5 @@ C:\Users\Lina\Desktop\APLICADA II\Registro1_Ap2\obj\Debug\net5.0\Registro1_Ap2.d
 C:\Users\Lina\Desktop\APLICADA II\Registro1_Ap2\obj\Debug\net5.0\ref\Registro1_Ap2.dll
 C:\Users\Lina\Desktop\APLICADA II\Registro1_Ap2\obj\Debug\net5.0\Registro1_Ap2.pdb
 C:\Users\Lina\Desktop\APLICADA II\Registro1_Ap2\obj\Debug\net5.0\Registro1_Ap2.genruntimeconfig.cache
+C:\Users\Lina\Desktop\APLICADA II\Registro1_Ap2\obj\Debug\net5.0\RazorDeclaration\Pages\Registro\RPrestamo.razor.g.cs
+C:\Users\Lina\Desktop\APLICADA II\Registro1_Ap2\obj\Debug\net5.0\Razor\Pages\Registro\RPrestamo.razor.g.cs
