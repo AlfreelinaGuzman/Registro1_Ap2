@@ -17,7 +17,7 @@ namespace Registro1_Ap2.Models
         [Required(ErrorMessage ="Este campo no puede estar vacio.")]
         public string Direccion { get; set; }
         
-        public DateTime FechaNacimiento { get; set; } 
+        public DateTime FechaNacimiento { get; set; } = DateTime.Now; 
         [Required(ErrorMessage ="Este campo no puede estar vacio.")] 
         public decimal Balance { get; set; } 
        

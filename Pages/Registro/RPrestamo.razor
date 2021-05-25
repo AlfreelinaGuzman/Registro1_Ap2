@@ -1,14 +1,14 @@
-@page "/Prestamos"
+@page "/prestamos"
 
 @using BLL
 @using Models
 @inject IToastService Toast
 
-<EditForm Model="Prestamos" OnValidSubmit="Guardar">
+<EditForm Model="prestamos" OnValidSubmit="Guardar">
     <DataAnnotationsValidator />
     <div class= "card">
         <div class="card-header">
-            <h3>Registro de Prestamos</h3>
+            <h3>Registro de prestamos</h3>
         </div> 
         <div class="card-body">
 
@@ -18,7 +18,7 @@
                     <div class="form-group">
                         <label>PrestamoId</label>
                         <div class="input-group">
-                            <InputNumber @bind-Value="Prestamos.PrestamoId" class="form-control col-2" min="0" height="8" widht="2" />
+                            <InputNumber @bind-Value="prestamos.PrestamoId" class="form-control col-2" min="0" height="8" widht="2" />
 
                             @*——————————————————————————————————————————————[ BUSCAR ]——————————————————————————————————————————————*@
                             <div class="input-group-append">
@@ -45,15 +45,15 @@
             @*——————————————————————————————————————————————[ Concepto ]——————————————————————————————————————————————*@
             <div class="form-group">
                 <label>Concepto</label>
-                <InputText @bind-Value="Prestamos.Concepto" height="8,2" widht="2" class="form-control col-4" />
-                <ValidationMessage For="@(() => Prestamos.Concepto)" />
+                <InputText @bind-Value="prestamos.Concepto" height="8,2" widht="2" class="form-control col-4" />
+                <ValidationMessage For="@(() => prestamos.Concepto)" />
             </div>
             @*——————————————————————————————————————————————[ Monto ]——————————————————————————————————————————————*@
             <div class="form-group">
                 <label>Monto</label>
-                <InputNumber @bind-Value="Prestamos.Monto" height="8" widht="2" class="form-control col-4" />
-                <ValidationMessage For="@(() => Prestamos.Monto)" />
-                @if (Prestamos.Monto!=changedMonto)
+                <input type="number"  @bind-value="prestamos.Monto" @bind-value:event="oninput"  height="8" widht="2" class="form-control col-4" />
+                <ValidationMessage For="@(() => prestamos.Monto)" />
+                @if (prestamos.Monto!=changedMonto)
                 {
                     MontoChanged();
                 }
@@ -62,8 +62,9 @@
             @*——————————————————————————————————————————————[ Balance ]——————————————————————————————————————————————*@
             <div class="form-group">
                 <label>Balance</label>
-                <InputNumber @bind-Value="Prestamos.Balance" height="8" widht="2" class="form-control col-4" />
-                <ValidationMessage For="@(() => Prestamos.Balance)" />
+                <InputNumber @bind-Value="prestamos.Balance" height="8" widht="2" class="form-control col-4" readonly/>
+               
+
             </div>
 
         
@@ -71,8 +72,8 @@
             @*——————————————————————————————————————————————[ Fecha  ]——————————————————————————————————————————————*@
             <div class="form-group">
                 <label>Fecha</label>
-                <InputDate @bind-Value="Prestamos.Fecha" height="8" widht="2" class="form-control col-4" />
-                <ValidationMessage For="@(() => Prestamos.Fecha)" />
+                <InputDate @bind-Value="prestamos.Fecha" height="8" widht="2" class="form-control col-4" />
+                <ValidationMessage For="@(() => prestamos.Fecha)" />
             </div>
 
             @*——————————————————————————————————————————————[ NUEVO / GUARDAR / ELIMINAR ]——————————————————————————————————————————————*@
@@ -96,7 +97,7 @@
         public int PersonaIndex { get; set; }
         public int PersonaId { get; set; }
 
-        private Prestamos Prestamos = new Prestamos();
+        private Prestamos prestamos = new Prestamos();
     	List <Personas> personas =new List <Personas>();
 
             protected override void OnInitialized()
@@ -107,26 +108,29 @@
 
             public void MontoChanged ()
             {
-                Prestamos.Balance = Prestamos.Monto;
+                prestamos.Balance = prestamos.Monto;
 
             }
 
     @*——————————————————————————————————————————————[NUEVO]——————————————————————————————————————————————*@
         public void Nuevo()
             {
-                Prestamos = new Prestamos();
+                prestamos = new Prestamos();
                 PersonaIndex = 0;
             }
 
     @*——————————————————————————————————————————————[BUSCAR]——————————————————————————————————————————————*@
         private void Buscar()
             {
-                if (Prestamos.PrestamoId > 0)
+                if (prestamos.PrestamoId > 0)
                 {
-                    var encontrado = PrestamosBLL.Buscar(Prestamos.PrestamoId);
+                    var encontrado = PrestamosBLL.Buscar(prestamos.PrestamoId);
 
                     if (encontrado != null)
-                        this.Prestamos = encontrado;
+                    {
+                        this.prestamos = encontrado;
+                        PersonaIndex= prestamos.PersonaId;
+                    }
                     else
                         Toast.ShowWarning("Esta Id no pudo ser encontrada.");
                     return;
@@ -137,12 +141,12 @@
         public void Guardar()
         {
             bool guardado;
-            Prestamos.PersonaId = PersonaIndex;            
-
-            guardado = PrestamosBLL.Guardar(Prestamos);
+            prestamos.PersonaId = PersonaIndex;            
+            guardado = PrestamosBLL.Guardar(prestamos);
 
             if (guardado)
             {
+                PersonasBLL.incremento(prestamos.PersonaId, prestamos.Monto);
                 Nuevo();
                 Toast.ShowSuccess("Registro Guardado exitosamente.");
             }
@@ -156,10 +160,11 @@
         {
             bool eliminado;
 
-            eliminado = PrestamosBLL.Eliminar(Prestamos.PrestamoId);
+            eliminado = PrestamosBLL.Eliminar(prestamos.PrestamoId);
 
             if (eliminado)
             {
+                PersonasBLL.decremento(prestamos.PersonaId, prestamos.Monto);
                 Nuevo();
                 Toast.ShowSuccess("Registro Eliminado exitosamente.");
             }

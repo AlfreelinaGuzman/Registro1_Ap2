@@ -119,7 +119,7 @@ using Models;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 83 "C:\Users\Lina\Desktop\APLICADA II\Registro1_Ap2\Pages\Registro\RPersonas.razor"
+#line 90 "C:\Users\Lina\Desktop\APLICADA II\Registro1_Ap2\Pages\Registro\RPersonas.razor"
        [Parameter]
                 public int PersonaId { get; set; }
 
@@ -136,7 +136,7 @@ using Models;
 #line hidden
 #nullable disable
 #nullable restore
-#line 93 "C:\Users\Lina\Desktop\APLICADA II\Registro1_Ap2\Pages\Registro\RPersonas.razor"
+#line 100 "C:\Users\Lina\Desktop\APLICADA II\Registro1_Ap2\Pages\Registro\RPersonas.razor"
                                                                                                            
         public void Nuevo()
             {
@@ -149,7 +149,7 @@ using Models;
 #line hidden
 #nullable disable
 #nullable restore
-#line 99 "C:\Users\Lina\Desktop\APLICADA II\Registro1_Ap2\Pages\Registro\RPersonas.razor"
+#line 106 "C:\Users\Lina\Desktop\APLICADA II\Registro1_Ap2\Pages\Registro\RPersonas.razor"
                                                                                                             
         private void Buscar()
             {
@@ -171,7 +171,7 @@ using Models;
 #line hidden
 #nullable disable
 #nullable restore
-#line 114 "C:\Users\Lina\Desktop\APLICADA II\Registro1_Ap2\Pages\Registro\RPersonas.razor"
+#line 121 "C:\Users\Lina\Desktop\APLICADA II\Registro1_Ap2\Pages\Registro\RPersonas.razor"
                                                                                                                
         public void Guardar()
         {
@@ -195,7 +195,7 @@ using Models;
 #line hidden
 #nullable disable
 #nullable restore
-#line 131 "C:\Users\Lina\Desktop\APLICADA II\Registro1_Ap2\Pages\Registro\RPersonas.razor"
+#line 138 "C:\Users\Lina\Desktop\APLICADA II\Registro1_Ap2\Pages\Registro\RPersonas.razor"
                                                                                                                 
         public void Eliminar()
         {

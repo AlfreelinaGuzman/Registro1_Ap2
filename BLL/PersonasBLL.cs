@@ -142,5 +142,19 @@ namespace Registro1_Ap2.BLL
             }
             return listado;
         }
+
+        public static void incremento(int id, decimal monto )
+        {
+            Personas personas= Buscar(id);
+            personas.Balance += monto;
+            Modificar(personas);
+        }
+
+        public static void decremento(int id, decimal monto )
+        {
+            Personas personas= Buscar(id);
+            personas.Balance -= monto;
+            Modificar(personas);
+        }
     }
 }

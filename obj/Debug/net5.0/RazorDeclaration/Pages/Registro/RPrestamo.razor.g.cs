@@ -110,7 +110,7 @@ using Models;
 #line default
 #line hidden
 #nullable disable
-    [Microsoft.AspNetCore.Components.RouteAttribute("/Prestamos")]
+    [Microsoft.AspNetCore.Components.RouteAttribute("/prestamos")]
     public partial class RPrestamo : Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998
@@ -119,7 +119,7 @@ using Models;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 92 "C:\Users\Lina\Desktop\APLICADA II\Registro1_Ap2\Pages\Registro\RPrestamo.razor"
+#line 93 "C:\Users\Lina\Desktop\APLICADA II\Registro1_Ap2\Pages\Registro\RPrestamo.razor"
  
      [Parameter]
         
@@ -127,7 +127,7 @@ using Models;
         public int PersonaIndex { get; set; }
         public int PersonaId { get; set; }
 
-        private Prestamos Prestamos = new Prestamos();
+        private Prestamos prestamos = new Prestamos();
     	List <Personas> personas =new List <Personas>();
 
             protected override void OnInitialized()
@@ -138,7 +138,7 @@ using Models;
 
             public void MontoChanged ()
             {
-                Prestamos.Balance = Prestamos.Monto;
+                prestamos.Balance = prestamos.Monto;
 
             }
 
@@ -148,11 +148,11 @@ using Models;
 #line hidden
 #nullable disable
 #nullable restore
-#line 114 "C:\Users\Lina\Desktop\APLICADA II\Registro1_Ap2\Pages\Registro\RPrestamo.razor"
+#line 115 "C:\Users\Lina\Desktop\APLICADA II\Registro1_Ap2\Pages\Registro\RPrestamo.razor"
                                                                                                            
         public void Nuevo()
             {
-                Prestamos = new Prestamos();
+                prestamos = new Prestamos();
                 PersonaIndex = 0;
             }
 
@@ -162,16 +162,19 @@ using Models;
 #line hidden
 #nullable disable
 #nullable restore
-#line 121 "C:\Users\Lina\Desktop\APLICADA II\Registro1_Ap2\Pages\Registro\RPrestamo.razor"
+#line 122 "C:\Users\Lina\Desktop\APLICADA II\Registro1_Ap2\Pages\Registro\RPrestamo.razor"
                                                                                                             
         private void Buscar()
             {
-                if (Prestamos.PrestamoId > 0)
+                if (prestamos.PrestamoId > 0)
                 {
-                    var encontrado = PrestamosBLL.Buscar(Prestamos.PrestamoId);
+                    var encontrado = PrestamosBLL.Buscar(prestamos.PrestamoId);
 
                     if (encontrado != null)
-                        this.Prestamos = encontrado;
+                    {
+                        this.prestamos = encontrado;
+                        PersonaIndex= prestamos.PersonaId;
+                    }
                     else
                         Toast.ShowWarning("Esta Id no pudo ser encontrada.");
                     return;
@@ -184,17 +187,17 @@ using Models;
 #line hidden
 #nullable disable
 #nullable restore
-#line 136 "C:\Users\Lina\Desktop\APLICADA II\Registro1_Ap2\Pages\Registro\RPrestamo.razor"
+#line 140 "C:\Users\Lina\Desktop\APLICADA II\Registro1_Ap2\Pages\Registro\RPrestamo.razor"
                                                                                                                
         public void Guardar()
         {
             bool guardado;
-            Prestamos.PersonaId = PersonaIndex;            
-
-            guardado = PrestamosBLL.Guardar(Prestamos);
+            prestamos.PersonaId = PersonaIndex;            
+            guardado = PrestamosBLL.Guardar(prestamos);
 
             if (guardado)
             {
+                PersonasBLL.incremento(prestamos.PersonaId, prestamos.Monto);
                 Nuevo();
                 Toast.ShowSuccess("Registro Guardado exitosamente.");
             }
@@ -209,16 +212,17 @@ using Models;
 #line hidden
 #nullable disable
 #nullable restore
-#line 154 "C:\Users\Lina\Desktop\APLICADA II\Registro1_Ap2\Pages\Registro\RPrestamo.razor"
+#line 158 "C:\Users\Lina\Desktop\APLICADA II\Registro1_Ap2\Pages\Registro\RPrestamo.razor"
                                                                                                                 
         public void Eliminar()
         {
             bool eliminado;
 
-            eliminado = PrestamosBLL.Eliminar(Prestamos.PrestamoId);
+            eliminado = PrestamosBLL.Eliminar(prestamos.PrestamoId);
 
             if (eliminado)
             {
+                PersonasBLL.decremento(prestamos.PersonaId, prestamos.Monto);
                 Nuevo();
                 Toast.ShowSuccess("Registro Eliminado exitosamente.");
             }

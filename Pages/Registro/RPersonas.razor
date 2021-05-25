@@ -55,6 +55,13 @@
                 <InputText @bind-Value="Personas.Direccion" height="8" widht="2" class="form-control col-4" />
                 <ValidationMessage For="@(() => Personas.Direccion)" />
             </div>
+            
+            @*——————————————————————————————————————————————[ Balance ]——————————————————————————————————————————————*@
+            <div class="form-group">
+                <label>Balance</label>
+                <InputNumber @bind-Value="Personas.Balance" height="8" widht="2" class="form-control col-4" readonly />
+                <ValidationMessage For="@(() => Personas.Balance)" />
+            </div>
 
             @*——————————————————————————————————————————————[ Fecha Nacimiento ]——————————————————————————————————————————————*@
             <div class="form-group">
